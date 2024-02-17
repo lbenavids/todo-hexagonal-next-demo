@@ -16,7 +16,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} flex flex-col h-screen gap-0.5 justify-between items-center`}>
+      <header className={"bg-teal-200 w-full h-20"}>Something</header>
+      <main className={" bg-gradient-to-b from-teal-300 to-teal-600 w-full h-full"}>
+          {children}
+      </main>
+      <footer className={"bg-teal-700 text-white w-full h-20"}>There</footer>
+      </body>
     </html>
   );
 }
