@@ -1,21 +1,11 @@
 import React from 'react';
 import {fetchAll} from "@/todo/framework/config/InstancesManager";
-import {StatusColumn} from "@/todo/framework/primary/ui/StatusColumn";
+import {MainTemplate} from "@/todo/framework/primary/ui/MainTemplate";
 
-const TodoPage = async () => {
 
+const TodoPage = async ({searchParams}: { searchParams: Record<string, string> | null | undefined }) => {
     const todos = await fetchAll.findAll();
-
-    if (todos.length === 0) return <p> There is nothing to show here :(</p>
-
-
-    return (
-        <div className={"flex gap-3 grid-cols-3 w-screen px-20 my-5"}>
-            <StatusColumn todos={todos} status={'pending'}/>
-            <StatusColumn todos={todos} status={'working'}/>
-            <StatusColumn todos={todos} status={'completed'}/>
-        </div>
-    );
+    return <MainTemplate todos={todos} showModal={searchParams?.modal === 'true'} error={searchParams?.error}/>;
 };
 
 export default TodoPage;
