@@ -37,9 +37,6 @@ export class InMemoryRepository implements FetchAllRepository, NewTodoRepository
     }
 
     async findTodoById(id: string): Promise<Todo | undefined> {
-
-        console.log("TODOS ->",this.todos);
-
         return this.todos.find(t => t.id === id);
     }
 
