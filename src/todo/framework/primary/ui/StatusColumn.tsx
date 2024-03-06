@@ -1,12 +1,12 @@
-import {Todo} from "@/todo/domain/Todo";
 import {ValidStatus} from "@/todo/domain/status/Status";
 import {ListItem} from "@/todo/framework/primary/ui/ListItem";
 import React from "react";
+import {TodoUIDTO} from "@/todo/framework/primary/ui/TodoUIDTO";
 
-export const StatusColumn = ({todos, status}: { todos: Todo[], status: ValidStatus }) => {
+export const StatusColumn = ({todos, status}: { todos: TodoUIDTO[], status: ValidStatus }) => {
 
     const renderTodos = todos
-        .filter(t => t.status.value === status)
+        .filter(t => t.status === status)
         .map(t => <ListItem todo={t} key={t.id}/>)
 
     const title = status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()

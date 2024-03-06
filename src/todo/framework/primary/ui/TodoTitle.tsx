@@ -1,11 +1,11 @@
-import {Todo} from "@/todo/domain/Todo";
 import {ValidStatus} from "@/todo/domain/status/Status";
 import {updateStatus} from "@/todo/framework/config/InstancesManager";
 import {revalidatePath} from "next/cache";
 import React from "react";
+import {TodoUIDTO} from "@/todo/framework/primary/ui/TodoUIDTO";
 
 export const TodoTitle = ({todo}: {
-    todo: Todo
+    todo: TodoUIDTO
 }) => {
 
     const titleColor: { [key in ValidStatus]: string } = {
@@ -24,8 +24,8 @@ export const TodoTitle = ({todo}: {
 
 
     return <summary
-        className={`${titleColor[todo.status.value]}  p-3 text-white  rounded-t text-3xl flex justify-between`}>{todo.title.value}
-        {todo.status.value !== 'completed' && <form action={update}>
+        className={`${titleColor[todo.status]}  p-3 text-white  rounded-t text-3xl flex justify-between`}>{todo.title}
+        {!todo.isCompleted && <form action={update}>
             <button className={" bg-gray-700 rounded px-3 text-lg"}>
                 Update
             </button>

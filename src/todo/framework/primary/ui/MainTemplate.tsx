@@ -1,11 +1,11 @@
-import {Todo} from "@/todo/domain/Todo";
 import {StatusColumn} from "@/todo/framework/primary/ui/StatusColumn";
 import Link from "next/link";
 import {NewTodoModal} from "@/todo/framework/primary/ui/NewTodoModal";
 import React from "react";
+import {TodoUIDTO} from "@/todo/framework/primary/ui/TodoUIDTO";
 
 interface MainTemplateProps {
-    todos: Todo[],
+    todos: TodoUIDTO[],
     error?: string | undefined,
     showModal?: boolean
 }
