@@ -13,9 +13,9 @@ export const StatusColumn = ({todos, status}: { todos: Todo[], status: ValidStat
 
 
     const backgrounds: {[key in ValidStatus]: string}= {
-        pending:'bg-lime-400',
-        working:"bg-green-400",
-        completed: "bg-emerald-400"
+        pending:'bg-teal-500',
+        working:"bg-teal-600",
+        completed: "bg-teal-700"
     }
 
 

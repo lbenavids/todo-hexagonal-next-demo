@@ -6,21 +6,21 @@ import {DetailInfo} from "@/todo/framework/primary/ui/DetailInfo";
 export const ListItem = ({todo}: { todo: Todo }) => {
 
     const titleColor: { [key in ValidStatus]: string } = {
-        pending: 'from-lime-200 to-lime-400',
-        working: 'from-green-200 to-green-400',
-        completed: 'from-emerald-200 to-emerald-400',
+        pending: 'bg-teal-500',
+        working: 'bg-teal-600',
+        completed: 'bg-teal-700',
     }
     const detailColor: { [key in ValidStatus]: string } = {
-        pending: 'from-lime-500 to-lime-600',
-        working: 'from-green-500 to-green-600',
-        completed: 'from-emerald-500 to-emerald-600',
+        pending: 'from-teal-500 to-teal-600',
+        working: 'from-teal-600 to-teal-700',
+        completed: 'from-teal-700 to-teal-800',
     }
 
     return <details className={'w-full rounded'}>
         <summary
-            className={`bg-gradient-to-b ${titleColor[todo.status.value]}  p-3 text-white  rounded text-3xl`}>{todo.title.value}</summary>
+            className={`${titleColor[todo.status.value]}  p-3 text-white  rounded-t text-3xl flex justify-between`}>{todo.title.value} <button className={" bg-black rounded px-3 text-lg"} type={"button"}>Update</button></summary>
         <div
-            className={`bg-gradient-to-b  ${detailColor[todo.status.value]} text-white rounded p-5 flex flex-col  gap-2.5 content-center`}>
+            className={`bg-gradient-to-b  ${detailColor[todo.status.value]} text-white rounded-b p-5 flex flex-col  gap-2.5 content-center border-t-2 border-white`}>
             <p className={"text-2xl self-center"}>{todo.description.value}</p>
             <dl className={'flex justify-around'}>
                 <DetailInfo value={todo.createdAt.toDateString()} title={"Created At"}/>

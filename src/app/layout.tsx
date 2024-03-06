@@ -17,11 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} flex flex-col h-screen gap-0.5 justify-between items-center`}>
-      <header className={"bg-teal-200 w-full h-20"}>Something</header>
-      <main className={" bg-gradient-to-b from-teal-300 to-teal-600 w-full h-full"}>
+      <header className={"bg-gray-100 w-full h-20 text-center text-6xl"}>Header</header>
+      <main className={" bg-gradient-to-b from-gray-200 to-gray-300 w-full h-full"}>
           {children}
       </main>
-      <footer className={"bg-teal-700 text-white w-full h-20"}>There</footer>
+      <footer className={"bg-gray-400 text-white w-full h-20 text-center text-6xl"}>Footer</footer>
       </body>
     </html>
   );
