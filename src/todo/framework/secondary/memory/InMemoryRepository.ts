@@ -27,7 +27,7 @@ export class InMemoryRepository implements FetchAllRepository, NewTodoRepository
 
     private toBuilder(todo: Todo) {
         return {
-            id:  todo.id || new Date().getTime().toString(),
+            id:  todo.id || (this.todos.length +1).toString(),
             description: todo.description.value,
             title: todo.title.value,
             createdAt: todo.createdAt || new Date(),
@@ -37,6 +37,9 @@ export class InMemoryRepository implements FetchAllRepository, NewTodoRepository
     }
 
     async findTodoById(id: string): Promise<Todo | undefined> {
+
+        console.log("TODOS ->",this.todos);
+
         return this.todos.find(t => t.id === id);
     }
 
