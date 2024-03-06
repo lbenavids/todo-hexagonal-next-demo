@@ -42,6 +42,18 @@ export class Todo {
     }
 
 
+    toBuilder() {
+        return {
+            id: this.id,
+            description: this.description.value,
+            title: this.title.value,
+            createdAt: this.createdAt || new Date(),
+            updatedAt: this.updatedAt || new Date(),
+            status: this.status.value
+        };
+    }
+
+
     static fromBuilder(builder: TodoBuilder): Todo {
         return new Todo(
             new Title(builder.title),

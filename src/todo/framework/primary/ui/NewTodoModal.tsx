@@ -20,7 +20,7 @@ export const NewTodoModal = ({error}: NewTodoModalProps) => {
         const description = formData.get("description") as string;
         let nextStep: string
         try {
-            await newTodo.create({title, description})
+            await newTodo?.create({title, description})
             nextStep = "/todos?modal=false"
         } catch (e: any) {
             nextStep = `/todos?modal=true&error=${e.message}`

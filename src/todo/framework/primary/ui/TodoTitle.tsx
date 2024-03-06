@@ -17,7 +17,7 @@ export const TodoTitle = ({todo}: {
     const update = async () => {
         'use server'
 
-        await updateStatus.updateTodoStatus({id: todo.id!})
+        await updateStatus?.updateTodoStatus({id: todo.id!})
 
         revalidatePath("/todos")
     }

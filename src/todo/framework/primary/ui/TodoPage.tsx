@@ -5,7 +5,7 @@ import {TodoUIDTO} from "@/todo/framework/primary/ui/TodoUIDTO";
 
 
 const TodoPage = async ({searchParams}: { searchParams: Record<string, string> | null | undefined }) => {
-    const todos = (await fetchAll.findAll()).map(TodoUIDTO.fromDomain);
+    const todos = (await fetchAll?.findAll())?.map(TodoUIDTO.fromDomain) || [];
     return <MainTemplate todos={todos} showModal={searchParams?.modal === 'true'} error={searchParams?.error}/>;
 };
 
