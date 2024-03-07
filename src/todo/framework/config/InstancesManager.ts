@@ -5,19 +5,20 @@ import {MongoRepository} from "@/todo/framework/secondary/mongo/MongoRepository"
 import {FetchAllRepository} from "@/todo/application/fetchAll/FetchAllRepository";
 import {NewTodoRepository} from "@/todo/application/newTodo/NewTodoRepository";
 import {UpdateStatusRepository} from "@/todo/application/updateStatus/UpdateStatusRepository";
+import {DbClient} from "@/todo/framework/secondary/mongo/DatabaseClient";
 
 
-let status = "not_started"
 export let fetchAll: FetchAllUseCase;
 export let newTodo: NewTodoUseCase;
 export let updateStatus: UpdateStatusUseCase;
 
 export const initApp = async () => {
 
-    if(status === 'not_started'){
-        status = 'waiting'
-        const mongoRepository = await  MongoRepository.getInstance();
+    if(!fetchAll){
 
+        const client = await DbClient.getInstance()
+
+        const mongoRepository = new MongoRepository(client.db)
         const fetchAllRepository: FetchAllRepository = mongoRepository;
         const newTodoRepository: NewTodoRepository = mongoRepository;
         const updateStatusRepository: UpdateStatusRepository = mongoRepository;
@@ -25,10 +26,11 @@ export const initApp = async () => {
         fetchAll = new FetchAll(fetchAllRepository);
         newTodo = new NewTodo(newTodoRepository);
         updateStatus = new UpdateStatus(updateStatusRepository);
-        status = 'done'
     }
 
-    return status
+    return {fetchAll, newTodo, updateStatus}
 }
+
+
 
 
