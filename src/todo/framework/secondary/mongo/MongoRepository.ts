@@ -1,77 +1,31 @@
 import * as mongoDB from "mongodb";
-import {Collection, EnhancedOmit, InferIdType, ObjectId} from "mongodb";
+import {Collection, ObjectId} from "mongodb";
 import {FetchAllRepository} from "@/todo/application/fetchAll/FetchAllRepository";
 import {NewTodoRepository} from "@/todo/application/newTodo/NewTodoRepository";
 import {UpdateStatusRepository} from "@/todo/application/updateStatus/UpdateStatusRepository";
-import {Todo, TodoBuilder} from "@/todo/domain/Todo";
-import {ValidStatus} from "@/todo/domain/status/Status";
-
-
-async function connectToDatabase() {
-
-    const client: mongoDB.MongoClient = new mongoDB.MongoClient(process.env.DB_CONN_STRING!);
-
-    await client.connect();
-
-    const db: mongoDB.Db = client.db("todos-demo");
-
-
-    console.log(`Successfully connected to database: ${db.databaseName}`);
-
-    return db;
-}
-
-
-const fromDomain = (todo: Todo) => {
-
-    const objectId = todo.id ? ObjectId.createFromHexString(todo.id) : undefined;
-
-
-    return {
-        title: todo.title.value!,
-        description: todo.description.value!,
-        status: todo.status.value,
-        createdAt: todo.createdAt,
-        updatedAt: todo.updatedAt,
-        id: objectId
-    }
-}
-
-interface TodoDto {
-    readonly title: string,
-    readonly description: string,
-    readonly status: ValidStatus,
-    readonly createdAt: Date,
-    readonly updatedAt: Date,
-    readonly id?: ObjectId,
-
-
-}
-
-const toBuilder = (todo: EnhancedOmit<TodoDto, "_id"> & { _id: InferIdType<TodoDto> }) => {
-    const builder: TodoBuilder = {
-        id: todo._id?.toHexString(),
-        title: todo.title,
-        description: todo.description,
-        status: todo.status,
-        createdAt: todo.createdAt,
-        updatedAt: todo.updatedAt
-    }
-    return builder;
-};
+import {Todo} from "@/todo/domain/Todo";
+import {TodoDto} from "@/todo/framework/secondary/mongo/TodoDto";
+import {fromDomain, toBuilder} from "@/todo/framework/secondary/mongo/DtoMapper";
+import {connectToDatabase} from "@/todo/framework/secondary/mongo/DatabaseClient";
 
 
 export class MongoRepository implements FetchAllRepository, NewTodoRepository, UpdateStatusRepository {
 
+private static INSTANCE : MongoRepository;
 
     private collection: Collection<TodoDto>;
 
-    constructor(private readonly db: mongoDB.Db) {
-
-
+    private constructor(db: mongoDB.Db) {
         this.collection = db.collection<TodoDto>("todos");
+    }
 
 
+    static async  getInstance(){
+        if(!MongoRepository.INSTANCE){
+            const db = await connectToDatabase();
+            MongoRepository.INSTANCE = new MongoRepository(db);
+        }
+        return MongoRepository.INSTANCE;
     }
 
 
@@ -120,8 +74,4 @@ export class MongoRepository implements FetchAllRepository, NewTodoRepository, U
 }
 
 
-export const createMongoInstance = async () => {
-    let dbPromise = await connectToDatabase();
-
-    return new MongoRepository(dbPromise);
-}
+export const createMongoInstance = async () => MongoRepository.getInstance()
