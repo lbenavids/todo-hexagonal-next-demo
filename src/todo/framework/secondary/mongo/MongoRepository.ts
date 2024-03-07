@@ -13,6 +13,7 @@ export class MongoRepository implements FetchAllRepository, NewTodoRepository, U
     private collection: Collection<TodoDto>;
 
     constructor(db: mongoDB.Db) {
+        console.log("MongoDb Created")
         this.collection = db.collection<TodoDto>("todos");
     }
 

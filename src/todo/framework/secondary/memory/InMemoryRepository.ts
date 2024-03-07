@@ -6,28 +6,24 @@ import {Todo} from "@/todo/domain/Todo";
 
 export class InMemoryRepository implements FetchAllRepository, NewTodoRepository, UpdateStatusRepository {
 
-    static readonly INSTANCE = new InMemoryRepository();
 
     private todos: Todo[] = [];
 
-    private constructor() {
+    constructor() {
+        console.log("In memory Created")
     }
 
-
-    async findAll(): Promise<Todo[]> {
-        return this.todos;
-    }
+    findAll = async (): Promise<Todo[]> => this.todos;
 
     async store(todo: Todo): Promise<Todo> {
         const idAdded = Todo.fromBuilder(this.toBuilder(todo));
         this.todos = [...this.todos, idAdded];
         return idAdded;
-
     }
 
     private toBuilder(todo: Todo) {
-        const id = todo.id ||  (this.todos.length + 1).toString();
-        return {...todo.toBuilder() , id}
+        const id = todo.id || (this.todos.length + 1).toString();
+        return {...todo.toBuilder(), id}
     }
 
     async findTodoById(id: string): Promise<Todo | undefined> {
