@@ -25,10 +25,10 @@ export const TodoTitle = ({todo}: {
 
     return <summary
         className={`${titleColor[todo.status]}  p-3 text-white  rounded-t text-3xl flex justify-between`}>{todo.title}
-        {!todo.isCompleted && <form action={update}>
-            <button className={" bg-gray-700 rounded px-3 text-lg"}>
+         <form action={update}>
+            <button className={" bg-gray-700 rounded px-3 text-lg disabled:bg-gray-300 disabled:line-through"} disabled={todo.isCompleted}>
                 Update
             </button>
-        </form>}
+        </form>
     </summary>;
 };
