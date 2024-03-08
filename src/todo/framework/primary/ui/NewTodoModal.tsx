@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
 import {redirect} from "next/navigation";
-import {newTodo} from "@/todo/framework/config/InstancesManager";
 import {TextField} from "@/todo/framework/primary/ui/TextField";
 import {ErrorMessage, ErrorMessageProps} from "@/todo/framework/primary/ui/ErrorMessage";
 import {Modal} from "@/todo/framework/primary/ui/Modal";
+import {useCaseFactory} from "@/todo/framework/config/UseCaseFactory";
 
 
 interface NewTodoModalProps extends ErrorMessageProps {
@@ -20,6 +20,7 @@ export const NewTodoModal = ({error}: NewTodoModalProps) => {
         const description = formData.get("description") as string;
         let nextStep: string
         try {
+            const newTodo = await useCaseFactory.createNewTodo();
             await newTodo.create({title, description})
             nextStep = "/todos?modal=false"
         } catch (e: any) {

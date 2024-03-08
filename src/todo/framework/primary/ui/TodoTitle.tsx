@@ -1,8 +1,8 @@
 import {ValidStatus} from "@/todo/domain/status/Status";
-import {updateStatus} from "@/todo/framework/config/InstancesManager";
 import {revalidatePath} from "next/cache";
 import React from "react";
 import {TodoUIDTO} from "@/todo/framework/primary/ui/TodoUIDTO";
+import {useCaseFactory} from "@/todo/framework/config/UseCaseFactory";
 
 export const TodoTitle = ({todo}: {
     todo: TodoUIDTO
@@ -16,7 +16,7 @@ export const TodoTitle = ({todo}: {
 
     const update = async () => {
         'use server'
-
+        const updateStatus = await useCaseFactory.createUpdateStatus();
         await updateStatus?.updateTodoStatus({id: todo.id!})
 
         revalidatePath("/todos")
