@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} flex flex-col h-screen gap-0.5 justify-between items-center`}>
       <header className={"bg-gray-100 w-full h-20 text-center text-6xl"}>Header</header>
-      <main className={" bg-gradient-to-b from-gray-200 to-gray-300 w-full h-full"}>
+      <main className={" bg-gradient-to-b from-gray-200 to-gray-300 w-full h-full overflow-auto"}>
           {children}
       </main>
       <footer className={"bg-gray-400 text-white w-full h-20 text-center text-6xl"}>Footer</footer>
