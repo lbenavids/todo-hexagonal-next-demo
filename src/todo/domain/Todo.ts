@@ -41,6 +41,9 @@ export class Todo {
         )
     }
 
+    withId(id: string){
+        return new Todo(this.title,this.description,this.status,id,this.createdAt,this.updatedAt)
+    }
 
     toBuilder() {
         return {

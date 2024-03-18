@@ -4,6 +4,7 @@ import {UpdateStatusRepository} from "@/todo/application/updateStatus/UpdateStat
 import {RepositoryFactory} from "@/todo/framework/config/RepositoryFactory";
 import {DbClient} from "@/todo/framework/secondary/mongo/DatabaseClient";
 import {MongoRepository} from "@/todo/framework/secondary/mongo/MongoRepository";
+import {DtoMapper} from "@/todo/framework/secondary/mongo/DtoMapper";
 
 export class MongoFactory implements RepositoryFactory {
     private static INSTANCE :MongoFactory = new MongoFactory();
@@ -31,7 +32,7 @@ export class MongoFactory implements RepositoryFactory {
     private async initRepo() {
         if (!this.repository) {
             const dbClient = await DbClient.getInstance();
-            this.repository = new MongoRepository(dbClient.db);
+            this.repository = new MongoRepository(dbClient.db, new DtoMapper());
         }
         return this.repository;
     }
