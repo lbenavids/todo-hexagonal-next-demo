@@ -13,7 +13,7 @@ interface NewTodoModalProps extends ErrorMessageProps {
 
 export const NewTodoModal = ({error}: NewTodoModalProps) => {
 
-    const summit = async (formData: FormData) => {
+    const submit = async (formData: FormData) => {
         "use server"
 
         const title = formData.get("title") as string;
@@ -32,7 +32,7 @@ export const NewTodoModal = ({error}: NewTodoModalProps) => {
 
     return <Modal>
         <form
-            action={summit}
+            action={submit}
             className="inline-block align-bottom bg-gray-200 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
             <div className="bg-gray-200 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
