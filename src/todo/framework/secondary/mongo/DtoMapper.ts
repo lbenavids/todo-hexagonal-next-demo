@@ -1,4 +1,4 @@
-import {Todo, TodoBuilder} from "@/todo/domain/Todo";
+import {Todo} from "@/todo/domain/Todo";
 import {EnhancedOmit, InferIdType, ObjectId} from "mongodb";
 import {TodoDto} from "@/todo/framework/secondary/mongo/TodoDto";
 
